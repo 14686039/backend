@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Spring 子容器 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!-- 
+	@Controller 声明Action组件 
+	@Service 声明Service组件 
+	@Service("myMovieLister") 
+	@Repository 声明Dao组件 
+	@Component 泛指组件, 当不好归类时. 
+	@RequestMapping("/menu") 请求映射 
+	@Resource 用于注入，( j2ee提供的 ) 默认按名称装配，
+	@Resource(name="beanName") 
+	@Autowired 用于注入，(spring提供的) 默认按类型装配 
+	@Transactional( rollbackFor={Exception.class}) 事务管理 
+	@ResponseBody @Scope("prototype") 设定bean的作用域 -->
+	
+	<context:annotation-config />
+	
+	<mvc:annotation-driven/>
+	
+	<context:component-scan base-package="jxt.*" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	</context:component-scan>
+	
+
+	 <aop:aspectj-autoproxy />
+	 
+	 <aop:config proxy-target-class="true"></aop:config>
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="stringHttpMessageConverter" />
+                <ref bean="jsonHttpMessageConverter" />
+            </list>
+        </property>
+    </bean>
+     
+    <bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter" >
+     	<property name = "supportedMediaTypes">    
+               <list>    
+                   <value>text/plain;charset=UTF-8</value>    
+               </list>    
+          </property>  
+    </bean> 
+    <bean id="jsonHttpMessageConverter" 
+        class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">  
+        <property name="supportedMediaTypes"> 
+            <list>  
+                <value>application/json</value>  
+            </list>  
+        </property>  
+    </bean>
+
+ 	<mvc:default-servlet-handler />
+
+	<mvc:resources mapping="/images/**" location="/images/"  cache-period="31556926" />
+	<mvc:resources mapping="/js/**" location="/js/" cache-period="31556926" />
+	<mvc:resources mapping="/css/**" location="/css/" cache-period="31556926" />
+	<mvc:resources mapping="/html/**" location="/html/" cache-period="31556926" />
+
+	<bean name="handlerAdapter"
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+	</bean>
+	<bean name="handlerMapping"
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+	</bean>
+	
+	
+	<!-- 设置国际化属性文件及其默认编码   注意：未设置p:defaultEncoding="UTF-8"前页面出现过乱码  -->  
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource"
+		p:basename="i18n/messages"   p:defaultEncoding="UTF-8" />
+	<!-- 设置国际化修改拦截器  -->
+	<bean id="localeChangeInterceptor"  
+	    class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">  
+	    <property name="paramName" value="locale" />  
+	</bean>
+		
+		
+		
+	<!-- 视图与内容协商 -->
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+	  <property name="order" value="1" />
+	  <property name="mediaTypes">
+		<map>
+            <entry key="json" value="application/json" />
+		</map>
+	  </property>
+	  <property name="defaultViews">
+		<list>
+		  <!-- JSON View -->
+		  <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"/>
+ 
+		 </list>
+	  </property>
+	  <property name="ignoreAcceptHeader" value="true" />
+	</bean>
+	
+	
+	
+	
+    
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="3" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix"  value=".jsp" />
+	</bean>
+    
+	
+	<!-- 针对异常映射问题 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="jxt.exception.PageNotAvailableException.java">
+					pageNotAvailable<!-- 跳转到PageNotAvailable.jsp页面 -->
+				</prop>
+				<prop key="jxt.exception.PermissionException">
+					login
+				</prop>
+			</props>
+		</property>
+		<property name="defaultErrorView" value="error"/><!-- 跳转到error.jsp页面 -->
+	</bean>
+	
+	<!-- 增加过滤器，以便能够使用容器 -->
+	
+	
+	<!-- 国际化 -->
+	<bean id="localResolver"
+				class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+				<property name="cookieName" value="language"/>
+				<property name="cookieMaxAge" value="3600"/>
+				<property name="defaultLocale" value="zh_CN"/>
+	</bean>
+	
+
+</beans>
