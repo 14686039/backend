@@ -27,6 +27,9 @@ $(function(){
 //			}
 //		});
 		
+		//初始化子菜单到全局集合
+		
+		
 		//默认触发点击子菜单第一个
 		$("ul#"+$("input#current-slide-menu").val()+">li")[0].click();
 		
@@ -47,6 +50,8 @@ $(function(){
 		//内容区域title
 		$("#content-title").text($(".head-link.active>a").text()+"管理模块");
 		
+		
+		
 		//根据不同的子菜单点击，展示主体内容，使用模版和AJAX数据
 		$("#content-right").loadTemplate("../temp/data.temp",null,{
 			success:function(){
@@ -57,17 +62,17 @@ $(function(){
 							buttons: {
 						        edit: {
 						            class: 'btn btn-sm btn-primary',
-						            html: '<span class="glyphicon glyphicon-pencil"></span> &nbsp EDIT',
+						            html: '<span class="glyphicon glyphicon-pencil"></span> 编辑',
 						            action: 'edit'
 						        },
 						        save:{
 						        	class: 'btn btn-sm btn-primary',
-						            html: '<span class="glyphicon glyphicon-pencil"></span> &nbsp SAVE',
+						            html: '<span class="glyphicon glyphicon-pencil"></span> 保存',
 						            action: 'submit'
 						        },
 						        delete:{
 						        	class: 'btn btn-sm btn-primary',
-						            html: '<span class="glyphicon glyphicon-pencil"></span> &nbsp DELETE',
+						            html: '<span class="glyphicon glyphicon-pencil"></span> 删除',
 						            action: 'delete'
 						        }
 						    },
