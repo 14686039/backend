@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="jxt.mapper.AreaMapper">
+	<insert id="insert" parameterType="jxt.pojo.AreaPojo"  >
+		insert into area(area_id,area_name,parent_id,address,website,remark)
+		                values(#{areaId},#{areaName},#{parentId},#{address},#{website},#{remark})
+	</insert>
+	<update id="update" parameterType="jxt.pojo.AreaPojo" >
+		update area
+		<set>
+	      <if test="areaName != null">area_name=#{areaName},</if>
+	      <if test="parentId != null">parent_id=#{parentId},</if>
+	      <if test="address != null">address=#{address},</if>
+	      <if test="website != null">website=#{website}</if>
+	      <if test="remark != null">remark=#{remark}</if>
+	    </set>
+		where area_id=#{areaId}
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		delete area where area_id=#{areaId}
+	</delete>
+	
+	<select id="selectAll" resultType="jxt.pojo.AreaPojo">
+		select 
+		area_id as areaId,
+		area_name as areaName,
+		parent_id as parentId,
+		address as address,
+		website as website,
+		remark as remark
+		from area
+	</select>
+
+
+</mapper>

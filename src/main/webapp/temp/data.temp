@@ -1,46 +1,36 @@
 <div class="box">
-	<div class="box-header"><span class="title">城市区域表</span></div>
+	<div class="box-header"><span class="title">分页列表</span>
+		<ul class="box-toolbar">
+			<li>
+				<form action="/search" class="fill-up" style="width: 100px" onsubmit="return false;">
+					<label class="input-with-submit">
+						<input id="tab-search-input" name="search" type="text" placeholder="Search...">
+						<button  id="tab-search-submit" class="submit-icon"><i class="icon-search"></i></button>
+					</label>
+				</form>
+			</li>
+			
+			<li><a class="btn btn-blue btn-mini">New</a></li>
+			
+		</ul>
+	</div>
 	<div class="box-content">
 		<div id="dataTables">
-			<table cellpadding="0" cellspacing="0" border="0" class="dTable responsive dataTable" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
-				<thead>
-					<tr role="row">
-						<th role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" ><div>编号</div></th>
-						<th role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" ><div>名称</div></th>
-						<th  role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" ><div>地址</div></th>
-						<th  role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"><div>操作</div></th>
-					</tr>
+			<table cellpadding="0" cellspacing="0" border="0" class="dTable responsive dataTable" id="DataTables_Table" aria-describedby="DataTables_Table_info">
+				<thead id="table-header">
+					
 				</thead>
 				
-				<tbody role="alert" aria-live="polite" aria-relevant="all">
-				<tr class="odd">
-				  <td class=" sorting_1">1</td>
-				  <td class=" ">荆南中学</td>
-				  <td class=" ">湖北</td>
-				  <td class="center "><a data-toggle="modal" href="#modal-form" class="btn btn-blue"><i class="icon-external-link"></i> 修改</a></td>
-				</tr><tr class="even">
-				  <td class=" sorting_1">2</td>
-				  <td class=" ">Firefox 1.5</td>
-				  <td class=" ">Win 98+ / OSX.2+</td>
-				  <td class="center ">1.8</td>
-				</tr><tr class="odd">
-				  <td class=" sorting_1">3</td>
-				  <td class=" ">Firefox 2.0</td>
-				  <td class=" ">Win 98+ / OSX.2+</td>
-				  <td class="center ">1.8</td>
-				</tr><tr class="even">
-				  <td class=" sorting_1">4</td>
-				  <td class=" ">Firefox 3.0</td>
-				  <td class=" ">Win 2k+ / OSX.3+</td>
-				  <td class="center ">1.9</td>
-				</tr>
+				<tbody role="alert" aria-live="polite" aria-relevant="all" id="table-detail">
+
 				</tbody>
 			</table>
-			<div class="table-footer"><!-- 分页情况 -->
-				<div class="dataTables_info" id="DataTables_Table_0_info">Showing 1 to 10 of 57 entries</div>
-				<div class="dataTables_paginate paging_full_numbers" id="DataTables_Table_0_paginate">
-					<a tabindex="0" class="first paginate_button paginate_button_disabled" id="DataTables_Table_0_first">First</a>
-					<a tabindex="0" class="previous paginate_button paginate_button_disabled" id="DataTables_Table_0_previous">Previous</a>
+			<div class="table-footer" id="table-footer-page"><!-- 分页情况 -->
+			<!--
+				<div class="dataTables_info" id="DataTables_Table_info">Showing 1 to 10 of 57 entries</div>
+				<div class="dataTables_paginate paging_full_numbers" id="DataTables_Table_paginate">
+					<a tabindex="0" class="first paginate_button paginate_button_disabled" id="DataTables_Table_first">First</a>
+					<a tabindex="0" class="previous paginate_button paginate_button_disabled" id="DataTables_Table_previous">Previous</a>
 					<span>
 						<a tabindex="0" class="paginate_active">1</a>
 						<a tabindex="0" class="paginate_button">2</a>
@@ -48,10 +38,11 @@
 						<a tabindex="0" class="paginate_button">4</a>
 						<a tabindex="0" class="paginate_button">5</a>
 					</span>
-					<a tabindex="0" class="next paginate_button" id="DataTables_Table_0_next">Next</a>
-					<a tabindex="0" class="last paginate_button" id="DataTables_Table_0_last">Last</a>
+					<a tabindex="0" class="next paginate_button" id="DataTables_Table_next">Next</a>
+					<a tabindex="0" class="last paginate_button" id="DataTables_Table_last">Last</a>
 				</div>
-			</div>
+				-->
+			</div><!-- 分页情况 -->
 			</div>
 		</div>
 	</div>

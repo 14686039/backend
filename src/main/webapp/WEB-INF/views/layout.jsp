@@ -95,9 +95,10 @@
 	    <div class="divider"><span></span></div>
 	    <!-- silde-show-or-hide来控制显示还是掩藏 -->
 		<ul id="silde-nav-menu-base-info" class="nav nav-list bs-docs-sidenav silde-show-or-hide">
-       		<li class="slide-nav-menu active"><a href="#welcome"><i class="icon-home"></i><i class="icon-chevron-right"></i>欢迎页</a></li>
-      		<li class="slide-nav-menu"><a href="#area"><i class="icon-reorder"></i><i class="icon-chevron-right"></i>区域 </a></li>
-       		<li class="slide-nav-menu"><a href="#school"><i class="icon-sitemap"></i><i class="icon-chevron-right"></i>学校</a></li>
+       		<li class="slide-nav-menu active" id="welcome"><a href="#"><i class="icon-home"></i><i class="icon-chevron-right"></i>欢迎页</a></li>
+      		<li class="slide-nav-menu" id="area"><a href="#"><i class="icon-reorder"></i><i class="icon-chevron-right"></i>区域 </a></li>
+       		<li class="slide-nav-menu" id="school"><a href="#"><i class="icon-sitemap"></i><i class="icon-chevron-right"></i>学校</a></li>
+       		<li class="slide-nav-menu" id="alliance"><a href="#"><i class="icon-sitemap"></i><i class="icon-chevron-right"></i>加盟商</a></li>
       		<li class="slide-nav-menu"><a href="#"><i class="icon-th-large"></i><i class="icon-chevron-right"></i>年级</a></li>
      		<li class="slide-nav-menu"><a href="#"><i class="icon-th"></i><i class="icon-chevron-right"></i>班级</a></li>
      		<li class="slide-nav-menu"><a href="#"><i class="icon-th-list"></i><i class="icon-chevron-right"></i>学段</a></li>

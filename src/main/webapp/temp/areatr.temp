@@ -1,0 +1,7 @@
+<tr class="odd">
+  <td class=" sorting_1" data-content="areaId"></td>
+  <td class=" " data-content="areaName"></td>
+  <td class=" " data-content="address"></td>
+  <td class="center " data-content="website"></td>
+  <td class="center " data-content="remark"></td>
+</tr>
