@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 public class AreaPojo implements Serializable {
 
+	
 	/**
 	 * 
 	 */
@@ -55,6 +56,12 @@ public class AreaPojo implements Serializable {
 	}
 	public void setWebsite(String website) {
 		this.website = website;
+	}
+	@Override
+	public String toString() {
+		return "AreaPojo [areaId=" + areaId + ", areaName=" + areaName
+				+ ", parentId=" + parentId + ", address=" + address
+				+ ", remark=" + remark + ", website=" + website + "]";
 	}
 	
 	

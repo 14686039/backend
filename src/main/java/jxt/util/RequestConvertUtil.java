@@ -1,18 +1,9 @@
-/*
- * Copyright (c) 2014 Nanjing Sesan Medical Technology Co.,Ltd.
- * All Rights Reserved
- * The software and information contained herein are proprietary to, and
- * comprise valuable trade secrets of, Nanjing Sesan Medical Technology Co.,Ltd., 
- * which intends to preserve as trade secrets such software and information.
- * This software is an unpublished copyright of Nanjing Sesan Medical Technology Co.,Ltd.. 
- * and may not be used, copied, transmitted, or stored in any manner. 
- * This software and information or any other copies thereof may
- * not be provided or otherwise made available to any other person.
- */
-
 package jxt.util;
 
 import java.lang.reflect.Field;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Map;
 
@@ -41,21 +32,42 @@ public class RequestConvertUtil {
 			
 			for(Field field:fields){
 				field.setAccessible(true);
-				String fieldName=fieldName2ColumnName(field.getName());
+				String fieldName=(field.getName());
 				Object value = request.getParameter(fieldName);
+				if(value==null){
+					continue;
+				}
 				 if(String.class.equals((field.getType()))){
 					field.set(result,(null==value)?"":value.toString());
 				}else if(Integer.class.equals((field.getType()))||"int".equals(field.getType().toString())){
-					field.set(result, Integer.parseInt(value.toString()));
+					if(!"".equals(value.toString().trim()))
+						field.set(result, Integer.parseInt(value.toString()));
 				}else if (Float.class.equals((field.getType()))||"float".equals(field.getType().toString())) {
-					field.set(result, Float.parseFloat(value.toString()));
+					if(!"".equals(value.toString().trim()))
+						field.set(result, Float.parseFloat(value.toString()));
 				}else if (Double.class.equals((field.getType()))||"double".equals(field.getType().toString())) {
-					field.set(result, Double.parseDouble(value.toString()));
+					if(!"".equals(value.toString().trim()))
+						field.set(result, Double.parseDouble(value.toString()));
 				}else if(Long.class.equals((field.getType()))||"long".equals(field.getType().toString())){
-					field.set(result, Long.parseLong(value.toString()));
+					if(!"".equals(value.toString().trim()))
+						field.set(result, Long.parseLong(value.toString()));
 				}else if(Character.class.equals((field.getType()))){
 					Character charValue = (null==value||"".equals(value))?null:value.toString().charAt(0);
 					field.set(result, charValue);						
+				}else if(Date.class.equals((field.getType()))){
+					if(!"".equals(value.toString().trim())){
+						DateFormat fmt1 =new SimpleDateFormat("yyyy-MM-dd");
+						DateFormat fmt2 =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						Date date =null;
+						try {
+							date = fmt1.parse(value.toString());
+							date = fmt2.parse(value.toString());
+							field.set(result, date);
+						} catch (Exception e) {
+							e.printStackTrace();
+							System.out.println("前端传参，日期格式错误");
+						}
+					}
 				}else{
 					field.set(result, value);
 				}

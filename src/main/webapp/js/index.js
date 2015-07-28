@@ -1,10 +1,19 @@
 $(function(){
 	
-
+	/**
+	 * ********************************************************************************
+	 * 加载全局参数配置信息-S
+	 * ********************************************************************************
+	 */
 	var url = window.location.href.split("//")[0]+"//"+window.location.host+"/" + "js/global.js";
 	$("body").append('<script type="text/javascript" src=\"' + url + '"></script>');
 	
-	//头部连接点击事件
+	
+	/**
+	 * ********************************************************************************
+	 * 头部连接点击事件-S
+	 * ********************************************************************************
+	 */
 	$(document).delegate("li.head-link","click",function(){
 		var param=$(this).find("a")[0].hash.replace("#","");
 		$("li.head-link").removeClass("active");
@@ -41,7 +50,12 @@ $(function(){
 		
 	});
 	
-	//左侧点击子菜单导航事件
+
+	/**
+	 * ********************************************************************************
+	 * 左侧点击子菜单导航事件-S
+	 * ********************************************************************************
+	 */
 	$(document).delegate("ul.silde-show-or-hide>li","click",function(){
 		$("li.slide-nav-menu").removeClass("active");
 		$(this).addClass("active");
@@ -58,88 +72,151 @@ $(function(){
 		if(currentItemId=='welcome'){
 			welcomeFun();
 		}else{
-			baseFun("","",eval(currentItemId));
+			baseFun("","",eval(currentItemId),true);
 		}
 		
 	});
 	
+	/**
+	 * ********************************************************************************
+	 * 表单头部搜索栏聚焦和失焦样式改变-Need to Modify
+	 * ********************************************************************************
+	 */
 	$(document).delegate("input#tab-search-input","focus",function(){
 		$(this).parent().parent().css("width","200px");
 	}).delegate("input#tab-search-input","blur",function(){
 		$(this).parent().parent().css("width","100px");
 	});
-	
-	
-	//表格栏上的搜索框
+
+	/**
+	 * ********************************************************************************
+	 * 表格栏上的搜索框点击进行查询
+	 * ********************************************************************************
+	 */
 	$(document).delegate("#tab-search-submit","click",function(){
 		var search=$("#tab-search-input").val();
 		var currentItemId=$("ul.silde-show-or-hide>li.active").attr("id");
-		baseFun(search,1,eval(currentItemId));
+		baseFun(search,1,eval(currentItemId),false);
 	});
 	
-	//分页查询
+	/**
+	 * ********************************************************************************
+	 * 点击分页进行查询
+	 * ********************************************************************************
+	 */
 	$(document).delegate("#DataTables_Table_paginate a","click",function(){
 		var v=$(this).text();
-		alert(v);
+		var search=$("#tab-search-input").val();
+		var currentItemId=$("ul.silde-show-or-hide>li.active").attr("id");
+		baseFun(search,v,eval(currentItemId),false);
 	});
 	
-	
-	//欢迎首页，静态
+	/**
+	 * ********************************************************************************
+	 * 欢迎首页，静态
+	 * ********************************************************************************
+	 */
 	var  welcomeFun=function(){
 		$("#content-right").loadTemplate("../temp/welcome.temp");
 	}
 	
-	
-	//根据不同的子菜单点击，展示主体内容，使用模版和AJAX数据
-	var baseFun=function(search,cp,data){
-		
+	/**
+	 * ********************************************************************************
+	 * 根据不同的子菜单点击，展示主体内容，使用模版和AJAX数据
+	 * data为全局变量，d为后台请求返回前端的JSON数据
+	 * ********************************************************************************
+	 */
+	var baseFun=function(search,cp,data,first){
 		$.ajax({
 			url:data.ajax_url,
 			data:{"search":search,"currentPage":cp},
 			dataType:"json",
 			success:function(d,i){
 				//S-渲染
-				$("#content-right").loadTemplate("../temp/data.temp",null,{
-					success:function(){
-						//头部处理
-						$("thead#table-header").html(renderHeader(data.header));
-						
-						//分页处理  currentPage,totalPage,totalCount,pageShow
-						$("#table-footer-page").html(renderPage(d.nowPage,d.totalPage,d.totalCount,d.pageShow));
-						
-						//表格处理
-						$("#table-detail").loadTemplate(data.tr_tmp,d.result,{
-							success:function(){$("#DataTables_Table").Tabledit(
-									{	
-										url: data.tab_edit_url,
-										buttons: tableButtons,
-										columns: data.columns,
-									    onSuccess: function(data, textStatus, jqXHR) {
-									        console.log('onSuccess(data, textStatus, jqXHR)');
-									        console.log(data);
-									        console.log(textStatus);
-									        console.log(jqXHR);
-									    },
-									    onDraw: function() {
-									        //console.log('onDraw()');
-									    },
-									}
-							);
-							}
-						});
-						
-					},
-				});
+				if(first){
+					afterLoadTableTemp(data,d);
+				}else{
+					afterLoadTableTempNotFirst(data,d);
+				}
 				//E-渲染
 			}
 		});
 	};
 	
-	var afterLoadTableTemp=function(){
-		
+	/**
+	 * ********************************************************************************
+	 * 第一次加载完成表格基本内容加载后需要渲染的部分
+	 * ********************************************************************************
+	 */
+	var afterLoadTableTemp=function(data,d){
+		$("#content-right").loadTemplate("../temp/baseTable.temp",null,{
+			success:function(){
+				//头部处理
+				$("thead#table-header").html(renderHeader(data.header));
+				//分页处理  currentPage,totalPage,totalCount,pageShow
+				$("#table-footer-page").html(renderPage(d.nowPage,d.totalPage,d.totalCount,d.pageShow));
+				//表格处理
+				$("#table-detail").loadTemplate(data.tr_tmp,d.result,{
+					success:function(){$("#DataTables_Table").Tabledit(
+							{	
+								url: data.tab_edit_url,
+								buttons: tableButtons,
+								columns: data.columns,
+							    onSuccess: function(data, textStatus, jqXHR) {
+							        console.log('表格编辑成功');
+							        console.log(data);
+							        console.log(textStatus);
+							        console.log(jqXHR);
+							    },
+							    onDraw: function() {
+							    	//TODO
+							    },
+							}
+					);
+					}
+				});
+				
+			},
+		});
 	};
 	
-	//分页
+
+	/**
+	 * ********************************************************************************
+	 * 非第一次加载完成表格基本内容加载后需要渲染的部分，此时不加载模版和渲染头部
+	 * ********************************************************************************
+	 */
+	var afterLoadTableTempNotFirst=function(data,d){
+		//分页处理  currentPage,totalPage,totalCount,pageShow
+		$("#table-footer-page").html(renderPage(d.nowPage,d.totalPage,d.totalCount,d.pageShow));
+		
+		//表格处理
+		$("#table-detail").loadTemplate(data.tr_tmp,d.result,{
+			success:function(){$("#DataTables_Table").Tabledit(
+					{	
+						url: data.tab_edit_url,
+						buttons: tableButtons,
+						columns: data.columns,
+					    onSuccess: function(data, textStatus, jqXHR) {
+					    	console.log('表格编辑成功');
+					        console.log(data);
+					        console.log(textStatus);
+					        console.log(jqXHR);
+					    },
+					    onDraw: function() {
+					    	//TODO
+					    },
+					}
+			);
+			}
+		});
+	};
+	
+	/**
+	 * ********************************************************************************
+	 * 分页功能
+	 * ********************************************************************************
+	 */
 	var renderPage=function(currentPage,totalPage,totalCount,pageShow){
 		var html='<div class="dataTables_info" id="DataTables_Table_info">当前条目 '+(1+(currentPage-1)*pageShow)+' - '+(currentPage*10>totalCount?totalCount:currentPage*10)+'  / 总条目  '+totalCount+' </div>';
 		html+='<input type="hidden" id="currentPage" value="'+currentPage+'">';
@@ -179,7 +256,11 @@ $(function(){
 		return html;
 	};
 	
-	//头部渲染
+	/**
+	 * ********************************************************************************
+	 * 渲染头部功能
+	 * ********************************************************************************
+	 */
 	var renderHeader=function(headerData){
 		var html='<tr role="row" style="height:35px;line-height:35px">';
 		for(var i=0;i<headerData.length;i++){
@@ -191,7 +272,11 @@ $(function(){
 	
 	
 	
-	//初始化
+	/**
+	 * ********************************************************************************
+	 * 初始化，网站打开点击第一个导航
+	 * ********************************************************************************
+	 */
 	$("li.head-link")[0].click();
 	
 });
