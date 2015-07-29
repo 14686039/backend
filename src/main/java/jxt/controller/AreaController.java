@@ -17,6 +17,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import jxt.pojo.AreaPojo;
+import jxt.pojo.BasePojo;
 import jxt.service.AreaService;
 import jxt.util.RequestConvertUtil;
 import jxt.util.page.Page;
@@ -56,6 +57,23 @@ public class AreaController {
 		page.setTotalPage(10);
 		System.out.println(page);
 		return page;
+	}
+	
+	@RequestMapping("/page")
+	@ResponseBody
+	public Page<AreaPojo> getAreaAllPage(@RequestParam(required=false) String search,@RequestParam(required=false) String currentPage){
+		System.out.println(search+":"+currentPage);
+		if(currentPage==null||"".equals(currentPage)){
+			currentPage="1";
+		}
+		
+		Page<AreaPojo> pageParam=new Page<AreaPojo>();
+		pageParam.setNowPage(Integer.parseInt(currentPage));
+		pageParam.setPageShow(10);
+		List<AreaPojo> areas = areaService.selectAllPage(pageParam,search);
+		pageParam.setResult(areas);
+		System.out.println(pageParam);
+		return pageParam;
 	}
 	
 	

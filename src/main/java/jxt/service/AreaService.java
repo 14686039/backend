@@ -6,6 +6,8 @@ import java.util.List;
 
 import jxt.mapper.AreaMapper;
 import jxt.pojo.AreaPojo;
+import jxt.pojo.BasePojo;
+import jxt.util.page.Page;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,10 @@ public class AreaService {
 	
 	public List<AreaPojo> selectAll(){
 		return areaMapper.selectAll();
+	}
+	
+	public List<AreaPojo>selectAllPage(Page<AreaPojo> pageParam,String search){
+		return areaMapper.selectAllPage(pageParam,search);
 	}
 	
 }

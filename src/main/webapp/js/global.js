@@ -5,11 +5,11 @@ var area={
 	        identifier: [0, 'areaId'],
 	        editable: [[1, 'areaName'], [2, 'address'], [3, 'website'],[4,'remark']]
 	    },
-	    ajax_url:'/area/query.json',
+	    ajax_url:'/area/page.json',
 	    tr_tmp:'../temp/areatr.temp',
 	    tab_edit_url:'/area/edit',
 	    open_table_edit:true,//是否开启表格编辑
-	    table_data_fun:'hello()'//数据加载完毕后自定义函数,可以绑定行的点击事件
+	    table_data_fun:'areaCB()'//数据加载完毕后自定义函数,可以绑定行的点击事件,新增事件模态框
 };
 
 
@@ -20,12 +20,12 @@ var area={
  */
 var tableButtons={
         edit: {
-            class: 'btn btn-sm btn-primary',
+            class: 'btn btn-sm btn-green',
             html: '<span class="icon-edit"></span>',
             action: 'edit'
         },
         save:{
-        	class: 'btn btn-sm btn-green',
+        	class: 'btn btn-sm btn-blue',
             html: '<span class=" icon-save"></span>',
             action: 'submit'
         },

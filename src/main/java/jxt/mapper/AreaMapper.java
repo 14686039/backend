@@ -12,11 +12,14 @@
 
 package jxt.mapper;
 
-import java.awt.geom.Area;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 
 import jxt.orm.SQLMapper;
 import jxt.pojo.AreaPojo;
+import jxt.pojo.BasePojo;
+import jxt.util.page.Page;
 
 /**
  * @author tangshun
@@ -30,5 +33,6 @@ public interface AreaMapper extends SQLMapper{
 	public void delete(String  areaId);
 	public List<AreaPojo>selectAll();
 	
+	public List<AreaPojo>selectAllPage(@Param("page")Page<AreaPojo> pageParam,@Param("search")String search);
 	
 }
