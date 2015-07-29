@@ -16,6 +16,7 @@ import java.awt.geom.Area;
 import java.util.List;
 
 import jxt.orm.SQLMapper;
+import jxt.pojo.AreaPojo;
 
 /**
  * @author tangshun
@@ -24,10 +25,10 @@ import jxt.orm.SQLMapper;
  */
 public interface AreaMapper extends SQLMapper{
 
-	public void insert(Area a);
-	public void update(Area a);
+	public void insert(AreaPojo a);
+	public void update(AreaPojo a);
 	public void delete(String  areaId);
-	public List<Area>selectAll();
+	public List<AreaPojo>selectAll();
 	
 	
 }

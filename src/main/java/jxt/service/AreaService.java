@@ -2,10 +2,10 @@
 
 package jxt.service;
 
-import java.awt.geom.Area;
 import java.util.List;
 
 import jxt.mapper.AreaMapper;
+import jxt.pojo.AreaPojo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class AreaService {
 	@Autowired
 	private AreaMapper areaMapper;
 	
-	public void insert(Area a){
+	public void insert(AreaPojo a){
 		areaMapper.insert(a);
 	}
 	
@@ -31,11 +31,11 @@ public class AreaService {
 		areaMapper.delete(areaId);
 	}
 	
-	public void update(Area a){
+	public void update(AreaPojo a){
 		areaMapper.update(a);
 	}
 	
-	public List<Area> selectAll(){
+	public List<AreaPojo> selectAll(){
 		return areaMapper.selectAll();
 	}
 	

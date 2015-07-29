@@ -189,7 +189,7 @@ $(function(){
 					tableEdit(data);
 				}
 				if(data.table_data_fun!=undefined&&data.table_data_fun!=''){
-					alert(data.table_data_fun);
+					eval(data.table_data_fun);
 				}
 			}
 		});
@@ -197,7 +197,9 @@ $(function(){
 	
 	//这是一个测试回调函数
 	var hello=function(){
-		alert("haha");
+		$(document).delegate(".belongto","click",function(){
+			console.log($(this).closest("tr").attr("id"));
+		});
 	}
 	
 	/**

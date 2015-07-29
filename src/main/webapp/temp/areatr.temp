@@ -4,6 +4,5 @@
   <td class=" " data-content="address"></td>
   <td class="center " data-content="website"></td>
   <td class="center " data-content="remark"></td>
-  <td class="center " data-content="parentId"></td>
-  <td class="center ">操作1</td>  <td class="center ">操作1</td>
+  <td class="center " data-content-prepend="parentName">&nbsp;<i class="belongto icon-arrow-up"></i></td>
 </tr>

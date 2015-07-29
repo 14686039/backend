@@ -24,14 +24,17 @@
 	</delete>
 	
 	<select id="selectAll" resultType="jxt.pojo.AreaPojo">
-		select 
-		area_id as areaId,
-		area_name as areaName,
-		parent_id as parentId,
-		address as address,
-		website as website,
-		remark as remark
-		from area
+		SELECT 
+			a.`area_id` AS areaId,
+			a.`area_name` AS areaName,
+			a.`remark` AS remark,
+			a.`address` AS address,
+			a.`website` AS website,
+			b.`area_id` AS parentId,
+			b.`area_name` AS parentName
+		FROM `area` a 
+		LEFT JOIN `area` b 
+		ON a.`parent_id`=b.`area_id`
 	</select>
 
 

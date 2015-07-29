@@ -12,8 +12,6 @@
 
 package jxt.controller;
 
-import java.awt.geom.Area;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,13 +42,13 @@ public class AreaController {
 	
 	@RequestMapping("/query")
 	@ResponseBody
-	public Page<Area> getAreaAll(@RequestParam(required=false) String search,@RequestParam(required=false) String currentPage){
+	public Page<AreaPojo> getAreaAll(@RequestParam(required=false) String search,@RequestParam(required=false) String currentPage){
 		System.out.println(search+":"+currentPage);
 		if(currentPage==null||"".equals(currentPage)){
 			currentPage="1";
 		}
-		List<Area> areas=areaService.selectAll();
-		Page<Area> page=new Page<Area>();
+		List<AreaPojo> areas=areaService.selectAll();
+		Page<AreaPojo> page=new Page<AreaPojo>();
 		page.setResult(areas);
 		page.setNowPage(Integer.parseInt(currentPage));
 		page.setPageShow(10);

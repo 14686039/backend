@@ -1,15 +1,15 @@
 
 var area={
-		header:["编号","名称","地址","网站","备注","从属"],
+		header:["编号","名称","地址","网站","备注","上级组织"],
 		columns: {
 	        identifier: [0, 'areaId'],
-	        editable: [[1, 'areaName'], [2, 'address'], [3, 'website'],[4,'remark'],[5,'parentId']]
+	        editable: [[1, 'areaName'], [2, 'address'], [3, 'website'],[4,'remark']]
 	    },
 	    ajax_url:'/area/query.json',
 	    tr_tmp:'../temp/areatr.temp',
 	    tab_edit_url:'/area/edit',
 	    open_table_edit:true,//是否开启表格编辑
-	    //table_data_fun:'hello()'//数据加载完毕后自定义函数,可以绑定行的点击事件
+	    table_data_fun:'hello()'//数据加载完毕后自定义函数,可以绑定行的点击事件
 };
 
 
