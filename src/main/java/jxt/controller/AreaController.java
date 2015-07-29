@@ -13,14 +13,20 @@
 package jxt.controller;
 
 import java.awt.geom.Area;
+import java.util.Enumeration;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import jxt.pojo.AreaPojo;
 import jxt.service.AreaService;
+import jxt.util.RequestConvertUtil;
 import jxt.util.page.Page;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -52,6 +58,28 @@ public class AreaController {
 		page.setTotalPage(10);
 		System.out.println(page);
 		return page;
+	}
+	
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	@ResponseBody
+	public String editTable(HttpServletRequest request){
+		
+//		Enumeration<String> names = request.getParameterNames();
+//		while(names.hasMoreElements()){
+//			String name=names.nextElement();
+//			System.out.println(name+":"+request.getParameter(name));
+//		}
+		
+		AreaPojo pojo = RequestConvertUtil.request2ObjectByCamel(request, AreaPojo.class);
+		
+		
+		String action=request.getParameter("action");//动作，决定执行CRUD
+		System.out.println(action);
+		System.out.println(pojo);
+		//System.out.println(pojo.getId()+"-"+pojo.getAddr()+"-"+pojo.getName()+"-"+pojo.getOp()+"-"+action);
+		
+		return "{\"result\":\"ok\"}";
 	}
 	
 }

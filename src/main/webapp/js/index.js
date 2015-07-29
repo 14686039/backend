@@ -157,22 +157,14 @@ $(function(){
 				$("#table-footer-page").html(renderPage(d.nowPage,d.totalPage,d.totalCount,d.pageShow));
 				//表格处理
 				$("#table-detail").loadTemplate(data.tr_tmp,d.result,{
-					success:function(){$("#DataTables_Table").Tabledit(
-							{	
-								url: data.tab_edit_url,
-								buttons: tableButtons,
-								columns: data.columns,
-							    onSuccess: function(data, textStatus, jqXHR) {
-							        console.log('表格编辑成功');
-							        console.log(data);
-							        console.log(textStatus);
-							        console.log(jqXHR);
-							    },
-							    onDraw: function() {
-							    	//TODO
-							    },
-							}
-					);
+					success:function(){
+						if(data.open_table_edit){
+							tableEdit(data);
+						}
+						if(data.table_data_fun!=undefined&&data.table_data_fun!=''){
+							eval(data.table_data_fun);
+						}
+							
 					}
 				});
 				
@@ -192,24 +184,45 @@ $(function(){
 		
 		//表格处理
 		$("#table-detail").loadTemplate(data.tr_tmp,d.result,{
-			success:function(){$("#DataTables_Table").Tabledit(
-					{	
-						url: data.tab_edit_url,
-						buttons: tableButtons,
-						columns: data.columns,
-					    onSuccess: function(data, textStatus, jqXHR) {
-					    	console.log('表格编辑成功');
-					        console.log(data);
-					        console.log(textStatus);
-					        console.log(jqXHR);
-					    },
-					    onDraw: function() {
-					    	//TODO
-					    },
-					}
-			);
+			success:function(){
+				if(data.open_table_edit){
+					tableEdit(data);
+				}
+				if(data.table_data_fun!=undefined&&data.table_data_fun!=''){
+					alert(data.table_data_fun);
+				}
 			}
 		});
+	};
+	
+	//这是一个测试回调函数
+	var hello=function(){
+		alert("haha");
+	}
+	
+	/**
+	 * ********************************************************************************
+	 * 表格编辑功能
+	 * ********************************************************************************
+	 */
+	var tableEdit=function(data){
+		$("#DataTables_Table").Tabledit(
+				{	
+					url: data.tab_edit_url,
+					buttons: tableButtons,
+					columns: data.columns,
+				    onSuccess: function(data, textStatus, jqXHR) {
+				    	console.log('表格编辑成功');
+				        console.log(data);
+				        console.log(textStatus);
+				        console.log(jqXHR);
+				    },
+				    onDraw: function() {
+
+				    },
+				}
+		);
+		
 	};
 	
 	/**

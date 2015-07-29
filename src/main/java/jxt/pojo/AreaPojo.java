@@ -21,6 +21,15 @@ public class AreaPojo implements Serializable {
 	private String address;
 	private String remark;
 	private String website;
+	
+	private String parentName;
+	
+	public String getParentName() {
+		return parentName;
+	}
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
 	public String getAreaId() {
 		return areaId;
 	}

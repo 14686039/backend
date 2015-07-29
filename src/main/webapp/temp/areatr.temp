@@ -1,7 +1,9 @@
 <tr class="odd">
-  <td class=" sorting_1" data-content="areaId"></td>
+  <td class="" data-content="areaId"></td>
   <td class=" " data-content="areaName"></td>
   <td class=" " data-content="address"></td>
   <td class="center " data-content="website"></td>
   <td class="center " data-content="remark"></td>
+  <td class="center " data-content="parentId"></td>
+  <td class="center ">操作1</td>  <td class="center ">操作1</td>
 </tr>

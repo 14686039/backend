@@ -11,11 +11,7 @@
   <title>家校通管理系统</title>
   <link href="${base}/assets/css/bootstrap.css" rel="stylesheet">
   <link href="${base}/assets/css/bootstrap-responsive.css" rel="stylesheet">
-  <style type="text/css">
-  .silde-show-or-hide{
-  	display: none;
-  }
-  </style>
+  <link href="${base}/css/jxt.css" rel="stylesheet">
 </head>
 <body>
 	<!-- 初始化掩藏域 -->
