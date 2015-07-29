@@ -4,5 +4,7 @@
   <td class=" " data-content="address"></td>
   <td class="center " data-content="website"></td>
   <td class="center " data-content="remark"></td>
-  <td class="center " data-content-prepend="parentName">&nbsp;<i class="belongto icon-arrow-up"></i></td>
+  <td class="center " data-content-prepend="parentName">&nbsp;
+  	<a data-toggle="modal" href="#modal-belongto"><i class="belongto icon-arrow-up"></i></a>
+  </td>
 </tr>

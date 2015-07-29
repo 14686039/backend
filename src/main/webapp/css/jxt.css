@@ -31,3 +31,8 @@
 	cursor: pointer;
 	color:green
 }
+
+/*修正面包屑的高度*/
+.breadcrumb-line .breadcrumbs li {
+	height:28px;
+}

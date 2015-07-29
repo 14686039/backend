@@ -196,9 +196,10 @@ $(function(){
 	};
 	
 	//这是一个测试回调函数
-	var hello=function(){
+	var areaCB=function(){
 		$(document).delegate(".belongto","click",function(){
 			console.log($(this).closest("tr").attr("id"));
+			$("#model-data").loadTemplate("../temp/areabelongto.temp",null);
 		});
 	}
 	
