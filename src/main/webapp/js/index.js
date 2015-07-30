@@ -117,7 +117,12 @@ $(function(){
 	 * ********************************************************************************
 	 */
 	var  welcomeFun=function(){
-		$("#content-right").loadTemplate("../temp/welcome.temp");
+		$("#content-right").loadTemplate("../temp/welcome.temp",null,{
+			success:function(){
+				$(".datepicker").datepicker({todayBtn:!0,language:"zh-CN",weekStart:1});
+			}
+			
+		});
 	}
 	
 	/**

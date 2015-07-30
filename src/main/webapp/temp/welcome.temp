@@ -3,4 +3,5 @@
   font-size: 20px;
   font-weight: bold;">
 欢迎您进入家校通后台管理系统！
+<input class="datepicker" type="text" placeholder="请选择日期">
 </div>

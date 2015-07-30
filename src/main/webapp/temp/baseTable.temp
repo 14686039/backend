@@ -16,12 +16,12 @@
 	</div>
 	<div class="box-content">
 		<div id="dataTables">
-			<table cellpadding="0" cellspacing="0" border="0" class="dTable responsive dataTable" id="DataTables_Table" aria-describedby="DataTables_Table_info">
+			<table cellpadding="0" cellspacing="0" border="0" class="dTable responsive dataTable" id="DataTables_Table">
 				<thead id="table-header">
 					
 				</thead>
 				
-				<tbody role="alert" aria-live="polite" aria-relevant="all" id="table-detail">
+				<tbody id="table-detail">
 
 				</tbody>
 			</table>
