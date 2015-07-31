@@ -1,0 +1,12 @@
+<tr class="odd">
+  <td class="" data-content="alliance_business_id"></td>
+  <td class=" " data-content="alliance_business_code"></td>
+  <td class=" " data-content="alliance_business_name"></td>
+  <td class="center " data-content="remark"></td>
+  <td class="center " data-content="areaName"></td>
+  <td class="center " data-content-prepend="schoolName">
+  	&nbsp;<a href="#"><i class="belongto icon-arrow-up"></i></a>
+  </td>
+    <td class="center isDate" data-content="startDt"></td>
+  <td class="center isDate" data-content="endDt"></td>
+</tr>

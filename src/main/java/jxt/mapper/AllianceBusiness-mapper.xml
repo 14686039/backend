@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="jxt.mapper.AllianceBusinessMapper">
+	<insert id="insert" parameterType="jxt.pojo.AllianceBusinessPojo"  >
+		insert alliance_business(alliance_business_id,alliance_business_code,alliance_business_name,remark) 
+		value(#{alliance_business_id},#{alliance_business_code},#{alliance_business_name},#{remark})
+	</insert>
+	<update id="update" parameterType="jxt.pojo.AllianceBusinessPojo" >
+		update alliance_business
+		<set>
+	      <if test="alliance_business_code != null">alliance_business_code=#{alliance_business_code},</if>
+	      <if test="alliance_business_name != null">alliance_business_name=#{alliance_business_name},</if>
+	      <if test="remark != null">remark=#{remark}</if>
+	    </set>
+		where alliance_business_id=#{alliance_business_id}
+	</update>
+	<update id="delete" parameterType="java.lang.String">
+		delete alliance_business 
+		set available='0'
+		where alliance_business_id=#{alliance_business_id}
+	</update>
+	
+	
+	<select id="selectAllPage" resultType="jxt.pojo.AllianceBusinessPojo"  parameterType="java.lang.String">
+	SELECT 
+	a.`alliance_business_id` as alliance_business_id,
+	a.`alliance_business_code` as alliance_business_code,
+	a.`alliance_business_name` as alliance_business_name,
+	a.`remark` as remark,
+	b.`area_name` as areaName,
+	b.`school_name` as schoolName,
+	b.`start_dt` as startDt,
+	b.`end_dt` as endDt
+	FROM alliance_business a LEFT JOIN alliance_business_rel b ON a.`alliance_business_id`=b.`alliance_business_id`
+	WHERE a.`available`='1' 
+	<if test="search!=null"> AND a.`alliance_business_name`  LIKE concat(concat('%',#{search}),'%') </if>
+	</select>
+
+
+</mapper>

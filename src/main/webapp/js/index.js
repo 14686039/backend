@@ -27,18 +27,7 @@ $(function(){
 		$("ul#"+$("input#current-slide-menu").val()).show();
 		
 		//获得侧栏的导航菜单
-//		$.ajax({
-//			type:"get",
-//			url:"/navmenu",
-//			dataType: "json", 
-//			data:"p="+param,
-//			success:function(data){
-//				//console.log(data);
-//			},
-//			error: function (XMLHttpRequest, textStatus, errorThrown) { 
-//                alert(errorThrown); 
-//			}
-//		});
+
 		
 		//初始化子菜单到全局集合
 		
@@ -72,7 +61,7 @@ $(function(){
 		if(currentItemId=='welcome'){
 			welcomeFun();
 		}else{
-			baseFun("","",eval(currentItemId),true);
+			baseFun("","1",eval(currentItemId),true);
 		}
 		
 	});
@@ -119,7 +108,7 @@ $(function(){
 	var  welcomeFun=function(){
 		$("#content-right").loadTemplate("../temp/welcome.temp",null,{
 			success:function(){
-				$(".datepicker").datepicker({todayBtn:!0,language:"zh-CN",weekStart:1});
+				$(".datepicker").datepicker({ming:"yyyy-mm-dd",todayBtn:!0,language:"zh-CN",weekStart:1});
 			}
 			
 		});
@@ -157,14 +146,22 @@ $(function(){
 		$("#content-right").loadTemplate("../temp/baseTable.temp",null,{
 			success:function(){
 				//头部处理
-				$("thead#table-header").html(renderHeader(data.header));
+				renderHeader(data);
+
 				//分页处理  currentPage,totalPage,totalCount,pageShow
 				$("#table-footer-page").html(renderPage(d.nowPage,d.totalPage,d.totalCount,d.pageShow));
+				
 				//表格处理
 				$("#table-detail").loadTemplate(data.tr_tmp,d.result,{
 					success:function(){
 						if(data.open_table_edit){
 							tableEdit(data);
+						}
+						if($("td.isDate").length > 0){
+							$("td.isDate").each(function(){
+								$(this).find("input").attr("data-date-format","yyyy-mm-dd");
+								$(this).find("input").datepicker({ming:"yyyy-mm-dd",todayBtn:!0,language:"zh-CN",weekStart:1});
+							});
 						}
 						if(data.table_data_fun!=undefined&&data.table_data_fun!=''){
 							eval(data.table_data_fun);
@@ -193,6 +190,14 @@ $(function(){
 				if(data.open_table_edit){
 					tableEdit(data);
 				}
+				
+				if($("td.isDate").length > 0){
+					$("td.isDate").each(function(){
+						$(this).find("input").attr("data-date-format","yyyy-mm-dd");
+						$(this).find("input").datepicker({ming:"yyyy-mm-dd",todayBtn:!0,language:"zh-CN",weekStart:1});
+					});
+				}
+				
 				if(data.table_data_fun!=undefined&&data.table_data_fun!=''){
 					eval(data.table_data_fun);
 				}
@@ -203,9 +208,16 @@ $(function(){
 	//这是一个测试回调函数
 	var areaCB=function(){
 		$(document).delegate(".belongto","click",function(){
-			console.log($(this).closest("tr").attr("id"));
+			//console.log($(this).closest("tr").attr("id"));
 			$("#model-data").loadTemplate("../temp/areabelongto.temp",null);
 		});
+	}
+	
+	var allianceCB=function(){
+//		$("td.isDate").each(function(){
+//			$(this).find("input").attr("data-date-format","yyyy-mm-dd");
+//			$(this).find("input").datepicker({ming:"yyyy-mm-dd",todayBtn:!0,language:"zh-CN",weekStart:1});
+//		});
 	}
 	
 	/**
@@ -220,10 +232,11 @@ $(function(){
 					buttons: tableButtons,
 					columns: data.columns,
 				    onSuccess: function(data, textStatus, jqXHR) {
-				    	console.log('表格编辑成功');
-				        console.log(data);
-				        console.log(textStatus);
-				        console.log(jqXHR);
+//				    	console.log('表格编辑成功');
+//				        console.log(data);
+//				        console.log(textStatus);
+//				        console.log(jqXHR);
+				    	$.gritter.add({title:"Success",text:"编辑表格ok",class_name:"success"});
 				    },
 				    onDraw: function() {
 
@@ -282,15 +295,36 @@ $(function(){
 	 * 渲染头部功能
 	 * ********************************************************************************
 	 */
-	var renderHeader=function(headerData){
+	var renderHeader=function(data){
+		var headerData=data.header;
 		var html='<tr role="row" style="height:35px;line-height:35px">';
 		for(var i=0;i<headerData.length;i++){
 			html+='<th role="columnheader" tabindex="0" aria-controls="DataTables_Table" rowspan="1" colspan="1" ><div style="font-weight:bold">'+headerData[i]+'</div></th>';
 		}
 		html+='</tr>';
-		return html;
+		
+		$("thead#table-header").html(html);
+		
+		//刷新按钮处理
+		$(document).delegate("li#table-edit-refresh","click",function(){
+			var search=""||$("#tab-search-input").val();
+			var cp="1"||$("#DataTables_Table_paginate a").text();
+			baseFun(search,cp,data,false);
+		});
+		
+		//新增按钮处理
+		$(document).delegate("li#table-edit-add","click",function(){
+			eval(data.addFun);
+		});
+		
 	}
 	
+	var areaAddFun=function(){
+		alert("新增区域！！！");
+	}
+	  var schoolAddFun=function(){
+		  alert("新增学校");
+	  }
 	
 	
 	/**

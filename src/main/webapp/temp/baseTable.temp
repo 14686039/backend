@@ -10,7 +10,8 @@
 				</form>
 			</li>
 			
-			<li><a class="btn btn-blue btn-mini">New</a></li>
+			<li id="table-edit-add"><a class="btn btn-green btn-mini"><i class="icon-plus"></i>增加</a></li>
+			<li id="table-edit-refresh"><a class="btn btn-lightblue btn-mini"><i class="icon-refresh"></i>刷新</a></li>
 			
 		</ul>
 	</div>

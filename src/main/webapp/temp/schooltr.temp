@@ -1,0 +1,11 @@
+<tr class="odd">
+  <td class="" data-content="school_id"></td>
+  <td class=" " data-content="area_id"></td>
+  <td class=" " data-content="school_name"></td>
+  <td class="center " data-content="school_code"></td>
+  <td class="center " data-content="parent_id"></td>
+  <td class="center " data-content-prepend="website">  </td>
+    <td class="center" data-content="school_desc"></td>
+  <td class="center" data-content="address"></td>
+    <td class="center" data-content="remark"></td>
+</tr>

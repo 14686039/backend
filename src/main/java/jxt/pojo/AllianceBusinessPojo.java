@@ -32,8 +32,8 @@ public class AllianceBusinessPojo implements Serializable {
 	private String areaName;
 	private String schoolId;
 	private String schoolName;
-	private Timestamp startDt;
-	private Timestamp endDt;
+	private String startDt;
+	private String endDt;
 	
 	
 	
@@ -95,16 +95,16 @@ public class AllianceBusinessPojo implements Serializable {
 	public void setSchoolName(String schoolName) {
 		this.schoolName = schoolName;
 	}
-	public Timestamp getStartDt() {
+	public String getStartDt() {
 		return startDt;
 	}
-	public void setStartDt(Timestamp startDt) {
+	public void setStartDt(String startDt) {
 		this.startDt = startDt;
 	}
-	public Timestamp getEndDt() {
+	public String getEndDt() {
 		return endDt;
 	}
-	public void setEndDt(Timestamp endDt) {
+	public void setEndDt(String endDt) {
 		this.endDt = endDt;
 	}
 	

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="jxt.mapper.SchoolMapper">
+	<insert id="insert" parameterType="jxt.pojo.SchoolPojo"  >
+		insert school(school_id,area_id,school_name,school_code,parent_id,website,school_desc,address,remark) 
+		value(#{school_id},#{area_id},#{school_name},#{school_code},#{parent_id},#{website},#{school_desc},#{address},#{remark})
+	</insert>
+	<update id="update" parameterType="jxt.pojo.SchoolPojo" >
+		update school
+		<set>
+	      <if test="area_id != null">area_id=#{area_id},</if>
+	      <if test="school_name != null">school_name=#{school_name},</if>
+	      <if test="school_code != null">school_code=#{school_code}</if>
+	      <if test="parent_id != null">parent_id=#{parent_id}</if>
+	      <if test="website != null">website=#{website}</if>
+	      <if test="school_desc != null">school_desc=#{school_desc}</if>
+	      <if test="address != null">address=#{address}</if>
+	       <if test="remark != null">remark=#{remark}</if>
+	    </set>
+		where school_id=#{school_id}
+	</update>
+	<update id="delete" parameterType="java.lang.String">
+		delete school 
+		set available='0'
+		where school_id=#{school_id}
+	</update>
+	
+	
+	<select id="selectAllPage" resultType="jxt.pojo.SchoolPojo"  parameterType="java.lang.String">
+	SELECT 
+	school_id,area_id,school_name,school_code,parent_id,website,school_desc,address,remark
+	FROM school a
+	WHERE a.`available`='1' 
+	<if test="search!=null"> AND a.`school_name`  LIKE concat(concat('%',#{search}),'%') </if>
+	</select>
+
+
+</mapper>
